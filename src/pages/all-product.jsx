@@ -189,7 +189,7 @@ function AllProduct() {
                 <div className="_8ghs">
                   <a href="#" className="block">
                     <img
-                      src="/images/website/vertical_1.png"
+                      src="/images/website/product-list_1.png"
                       className="_9rtu"
                     />
                   </a>
@@ -218,7 +218,7 @@ function AllProduct() {
                 <div className="_8ghs">
                   <a href="#" className="block">
                     <img
-                      src="/images/website/vertical_2.png"
+                      src="/images/website/product-list_2.png"
                       className="_9rtu"
                     />
                   </a>
@@ -226,7 +226,7 @@ function AllProduct() {
                 <div className="_0cac">
                   <div className="_9not">
                     <div className="_2pzh">
-                      <a href="#">Compostable Materials</a>
+                      <a href="#">Compostable Products</a>
                     </div>
                     <div className="_8ynm textLine-5">
                       Lorem Ipsum is simply dummy text of the printing and
