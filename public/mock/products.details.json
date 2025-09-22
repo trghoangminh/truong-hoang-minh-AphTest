@@ -1,0 +1,180 @@
+[
+  {
+    "id": 101,
+    "name": "Food Wrap",
+    "sku": "036897488221-2",
+    "slug": "food-wrap",
+    "shortDesc": "100% compostable PBAT food wrap.",
+    "specification": "<ul><li>FDA Compliant</li><li>CFIA Compliant</li></ul>",
+    "dataSheet": "/docs/food-wrap.pdf",
+    "altRef": "3061110050",
+    "widthCm": 25,
+    "lengthCm": 100,
+    "maxWeight": "1kg",
+    "colors": "Clear",
+    "material": "PVC",
+    "recycle": "No",
+    "media": [
+      "/images/website/product_1.png",
+      "/images/website/product_2.png",
+      "/images/website/product_3.png"
+    ]
+  },
+  {
+    "id": 102,
+    "name": "Overlock Jumbo bag",
+    "sku": "036897488221-2",
+    "slug": "overlock-jumbo-bag",
+    "shortDesc": "Durable overlock jumbo bag for industrial use.",
+    "specification": "<ul><li>High tensile strength</li><li>Reusable</li></ul>",
+    "dataSheet": "/docs/overlock-jumbo-bag.pdf",
+    "altRef": "OLB-1001",
+    "widthCm": 90,
+    "lengthCm": 120,
+    "maxWeight": "25kg",
+    "colors": "White",
+    "material": "PP",
+    "recycle": "Yes",
+    "media": [
+      "/images/website/product_2.png",
+      "/images/website/product_3.png"
+    ]
+  },
+  {
+    "id": 103,
+    "name": "Food Wrap",
+    "sku": "036897488221-2",
+    "slug": "food-wrap-2",
+    "shortDesc": "Compostable food wrap variant.",
+    "specification": "<ul><li>BPA Free</li><li>Compostable</li></ul>",
+    "dataSheet": "/docs/food-wrap-2.pdf",
+    "altRef": "3061110051",
+    "widthCm": 30,
+    "lengthCm": 100,
+    "maxWeight": "1kg",
+    "colors": "Clear",
+    "material": "PVC",
+    "recycle": "No",
+    "media": [
+      "/images/website/product_1.png",
+      "/images/website/product_2.png"
+    ]
+  },
+  {
+    "id": 104,
+    "name": "Overlock Jumbo bag",
+    "sku": "036897488221-2",
+    "slug": "overlock-jumbo-bag-2",
+    "shortDesc": "Overlock jumbo bag version 2.",
+    "specification": "<ul><li>Heavy duty</li><li>Eco-conscious</li></ul>",
+    "dataSheet": "/docs/overlock-jumbo-bag-2.pdf",
+    "altRef": "OLB-1002",
+    "widthCm": 95,
+    "lengthCm": 130,
+    "maxWeight": "30kg",
+    "colors": "Grey",
+    "material": "PP",
+    "recycle": "Yes",
+    "media": [
+      "/images/website/product_3.png",
+      "/images/website/product_1.png"
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Food Wrap",
+    "sku": "036897488221-2",
+    "slug": "food-wrap-3",
+    "shortDesc": "Food wrap size M.",
+    "specification": "<ul><li>Non-toxic</li><li>Strong cling</li></ul>",
+    "dataSheet": "/docs/food-wrap-3.pdf",
+    "altRef": "3061110052",
+    "widthCm": 28,
+    "lengthCm": 80,
+    "maxWeight": "1kg",
+    "colors": "Clear",
+    "material": "PVC",
+    "recycle": "No",
+    "media": [
+      "/images/website/product_2.png"
+    ]
+  },
+  {
+    "id": 106,
+    "name": "Overlock Jumbo bag",
+    "sku": "036897488221-2",
+    "slug": "overlock-jumbo-bag-3",
+    "shortDesc": "Overlock jumbo bag size L.",
+    "specification": "<ul><li>Lightweight</li><li>Durable</li></ul>",
+    "dataSheet": "/docs/overlock-jumbo-bag-3.pdf",
+    "altRef": "OLB-1003",
+    "widthCm": 100,
+    "lengthCm": 150,
+    "maxWeight": "35kg",
+    "colors": "White",
+    "material": "PP",
+    "recycle": "Yes",
+    "media": [
+      "/images/website/product_1.png"
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Food Wrap",
+    "sku": "036897488221-2",
+    "slug": "food-wrap-4",
+    "shortDesc": "Food wrap size L.",
+    "specification": "<ul><li>Microwave safe</li><li>Eco-friendly</li></ul>",
+    "dataSheet": "/docs/food-wrap-4.pdf",
+    "altRef": "3061110053",
+    "widthCm": 35,
+    "lengthCm": 120,
+    "maxWeight": "1kg",
+    "colors": "Clear",
+    "material": "PVC",
+    "recycle": "No",
+    "media": [
+      "/images/website/product_3.png"
+    ]
+  },
+  {
+    "id": 108,
+    "name": "Overlock Jumbo bag",
+    "sku": "036897488221-2",
+    "slug": "overlock-jumbo-bag-4",
+    "shortDesc": "Overlock jumbo bag variant 4.",
+    "specification": "<ul><li>Water resistant</li><li>Strong seams</li></ul>",
+    "dataSheet": "/docs/overlock-jumbo-bag-4.pdf",
+    "altRef": "OLB-1004",
+    "widthCm": 105,
+    "lengthCm": 160,
+    "maxWeight": "40kg",
+    "colors": "Grey",
+    "material": "PP",
+    "recycle": "Yes",
+    "media": [
+      "/images/website/product_2.png"
+    ]
+  },
+  {
+    "id": 109,
+    "name": "Food Wrap",
+    "sku": "036897488221-2",
+    "slug": "food-wrap-5",
+    "shortDesc": "Food wrap value pack.",
+    "specification": "<ul><li>Extra length</li><li>Strong cling</li></ul>",
+    "dataSheet": "/docs/food-wrap-5.pdf",
+    "altRef": "3061110054",
+    "widthCm": 25,
+    "lengthCm": 200,
+    "maxWeight": "1kg",
+    "colors": "Clear",
+    "material": "PVC",
+    "recycle": "No",
+    "media": [
+      "/images/website/product_1.png"
+    ]
+  }
+]
+
+

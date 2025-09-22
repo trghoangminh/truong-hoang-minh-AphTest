@@ -1,6 +1,10 @@
 [
-  { "id": 1, "name": "Consumer Packaging", "url": "consumer-packaging", "shortDesc": "Everyday eco products", "image": "/images/website/catelog_1.png" },
-  { "id": 2, "name": "Industrial Packaging", "url": "industrial-packaging", "shortDesc": "For industry needs", "image": "/images/website/catelog_2.png" }
+  { "id": 1, "name": "Sustainable Products", "url": "sustainable-products", "shortDesc": "Eco-friendly solutions", "image": "/images/website/market_1.png" },
+  { "id": 2, "name": "Consumer Goods", "url": "consumer-goods", "shortDesc": "Everyday products", "image": "/images/website/market_2.png" },
+  { "id": 3, "name": "Food Packaging", "url": "food-packaging", "shortDesc": "Ready-to-eat containers", "image": "/images/website/market_3.png" },
+  { "id": 4, "name": "Engineering Plastics", "url": "engineering-plastics", "shortDesc": "Precision parts", "image": "/images/website/market_4.png" },
+  { "id": 5, "name": "Building Materials", "url": "building-materials", "shortDesc": "Interior/Exterior", "image": "/images/website/market_5.png" },
+  { "id": 6, "name": "Raw Materials", "url": "raw-materials", "shortDesc": "Resins & compounds", "image": "/images/website/market_6.png" }
 ]
 
 

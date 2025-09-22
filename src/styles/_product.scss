@@ -265,18 +265,38 @@
   ._0odn {
     max-width: 1320px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
 
     ._3iwp ._8ahh {
       position: relative;
+      display: block;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
 
       ._4rfh {
-        border-radius: 22px;
+        border-radius: 20px;
         overflow: hidden;
         position: relative;
 
         ._5mgw {
-          aspect-ratio: 18/9;
+          aspect-ratio: 16/9;
           object-fit: cover;
+          width: 100%;
+          transform: scale(1);
+          transition: transform 0.35s ease;
         }
       }
 
@@ -286,44 +306,61 @@
         width: 50%;
         left: 0;
         top: 0;
-        padding: 20px;
+        padding: 24px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-image: linear-gradient(to right, #fff, #fff0);
-        border-radius: 22px;
+        background-image: linear-gradient(to right, rgba(255,255,255,0.96), rgba(255,255,255,0));
+        border-radius: 20px;
         overflow: hidden;
 
         ._9wvo {
           color: var(--Blue-800, #1e246e);
           font-family: Unbounded;
-          font-size: 20px;
+          font-size: 24px;
           font-style: normal;
           font-weight: 600;
           line-height: normal;
           text-transform: uppercase;
+          letter-spacing: 0.4px;
         }
 
         ._4jqn {
-          width: 54px;
+          width: 44px;
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 40px;
-          border: 1px solid #118e55;
+          height: 44px;
+          border: 2px solid #118e55;
           color: #118e55;
-          border-radius: 50px;
+          border-radius: 999px;
+          background: transparent;
+          transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+            transform 0.3s ease;
         }
       }
 
       &.has-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+
+        ._4rfh ._5mgw {
+          transform: scale(1.06);
+        }
+
+        ._1blc {
+          background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.98),
+            rgba(255, 255, 255, 0)
+          );
+        }
         ._4jqn {
           color: #fff;
-          transition: filter 0.6s, opacity 0.6s, transform 0.6s, box-shadow 0.3s;
-          background: var(
-            --Linear-1,
-            linear-gradient(90deg, #008356 0%, #52a949 100%)
-          );
+          transition: filter 0.3s, opacity 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
+          background: linear-gradient(90deg, #008356 0%, #52a949 100%);
+          border-color: transparent;
+          transform: translateX(2px);
         }
       }
     }
@@ -380,6 +417,16 @@
   ._5msj {
     max-width: 1320px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -669,6 +716,12 @@
   ._1ghu {
     max-width: 1320px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
   }
 
   .GalleryArea {
@@ -698,9 +751,11 @@
   }
 
   .product-vertical-thumbnails {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 21px;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 0;
 
     .swiper-pagination-vertical {
       visibility: hidden;
@@ -711,15 +766,15 @@
     }
 
     .ThumbGallery {
-      width: 80px;
-      height: 500px;
+      width: 90px;
+      height: 460px;
 
       .swiper-slide {
-        border-radius: 12px;
+        border-radius: 10px;
         border: 2px solid transparent;
         overflow: hidden;
-        height: 80px;
-        width: 80px;
+        height: 90px;
+        width: 90px;
 
         &.swiper-slide-thumb-active {
           border: 2px solid #58b947;
@@ -742,7 +797,8 @@
   ._6hoq {
     text-align: left;
     position: relative;
-    left: 120px;
+    left: 0;
+    margin-top: 8px;
 
     ._7lpb {
       color: #118e55;
@@ -765,13 +821,13 @@
     .product-title {
       color: var(--Blue-800, #1e246e);
       font-family: Unbounded;
-      font-size: 40px;
+      font-size: 36px;
       font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-bottom: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #dedfd8;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .sku {
@@ -780,18 +836,19 @@
       text-overflow: ellipsis;
       font-size: 14px;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 500;
       line-height: normal;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .description {
-      color: #696969;
-      font-size: 16px;
+      color: #3a3a3a;
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
-      line-height: normal;
-      margin-bottom: 40px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      max-width: 560px;
     }
 
     ._6zrw {
@@ -799,15 +856,20 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
 
       .button {
-        padding: 12px 28px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-decoration: none;
 
         &.button-outline-green {
           background: transparent;
           color: #118e55;
           border: 1px solid #118e55;
+          text-decoration: none;
 
           &:hover {
             color: #fff;
@@ -815,8 +877,17 @@
               --Linear-1,
               linear-gradient(90deg, #008356 0%, #52a949 100%)
             );
+            border-color: transparent;
+            text-decoration: none;
           }
         }
+      }
+      .button-gradient {
+        background: linear-gradient(90deg, #73b564 0%, #2ca24c 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.08) inset;
+        text-decoration: none;
       }
     }
 
@@ -956,3 +1027,59 @@
     }
   }
 }
+
+/* Reusable cards on All Products (consumer/engineering blocks) */
+._4euo {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  ._8aey {
+    img._1qlp {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  ._3pxh {
+    padding: 12px 14px 14px;
+
+    ._0cvj a {
+      color: var(--Blue-800, #1e246e);
+      font-family: Unbounded;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    ._8gbl {
+      color: #696969;
+      font-size: 13px;
+      margin-top: 6px;
+      min-height: 34px;
+    }
+
+    ._4jqn {
+      margin-top: 10px;
+      color: #118e55;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+  }
+}
+
+/* Sustainable products row */
+.fumed-ref ._5tcj {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
