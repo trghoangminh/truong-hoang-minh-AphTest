@@ -65,6 +65,7 @@ export const {
   useGetRelatedProductsQuery,
   useSearchProductsQuery,
   useFilterSearchProductsMutation,
+  useGetAllMockProductsQuery,
 } = productApi;
 
 
