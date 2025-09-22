@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Breadcrumb, Col, Flex, Input, Row } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useGetCategoriesQuery } from "../services/api/category.api";
 
 function AllProduct() {
   const navigate = useNavigate();
+  const { data: categories } = useGetCategoriesQuery();
 
   const onSearch = async (e) => {
     if (e) {
@@ -145,84 +147,28 @@ function AllProduct() {
             </Row>
           </div>
           <div className="_0odn">
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_1.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Consumer Goods</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
+            {categories?.map((c) => (
+              <div key={c.id} className="_3iwp">
+                <a
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/category/${c.url}`);
+                  }}
+                  href={`/category/${c.url}`}
+                  className="_8ahh block has-hover"
+                >
+                  <div className="_4rfh image-zoom">
+                    <img src={c.image} className="_5mgw" />
                   </div>
-                </div>
-              </a>
-            </div>
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_2.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Consumer Goods</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
+                  <div className="_1blc">
+                    <div className="_9wvo">{c.name}</div>
+                    <div className="_4jqn">
+                      <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
+                    </div>
                   </div>
-                </div>
-              </a>
-            </div>
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_3.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Packaging</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_4.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Engineering Plastics</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_5.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Building Materials</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div className="_3iwp">
-              <a href="#" className="_8ahh block has-hover">
-                <div className="_4rfh image-zoom">
-                  <img src="/images/website/market_6.png" className="_5mgw" />
-                </div>
-                <div className="_1blc">
-                  <div className="_9wvo">Raw Materials</div>
-                  <div className="_4jqn">
-                    <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
-                  </div>
-                </div>
-              </a>
-            </div>
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>

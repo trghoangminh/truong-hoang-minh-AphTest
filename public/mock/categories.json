@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Consumer Packaging", "url": "consumer-packaging", "shortDesc": "Everyday eco products", "image": "/images/website/catelog_1.png" },
+  { "id": 2, "name": "Industrial Packaging", "url": "industrial-packaging", "shortDesc": "For industry needs", "image": "/images/website/catelog_2.png" }
+]
+
+

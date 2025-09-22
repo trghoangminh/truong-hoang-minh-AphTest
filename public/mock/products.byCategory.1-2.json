@@ -1,0 +1,27 @@
+{
+  "page": 1,
+  "pageSize": 9,
+  "total": 20,
+  "items": [
+    { "id": 101, "name": "Food Wrap", "sku": "036897488221-2", "slug": "food-wrap", "thumb": "/images/website/product-list_1.png" },
+    { "id": 102, "name": "Overlock Jumbo bag", "sku": "036897488221-2", "slug": "overlock-jumbo-bag", "thumb": "/images/website/product-list_2.png" },
+    { "id": 201, "name": "Industrial Wrap A", "sku": "IND-001", "slug": "industrial-wrap-a", "thumb": "/images/website/product-list_3.png" },
+    { "id": 202, "name": "Industrial Bag B", "sku": "IND-002", "slug": "industrial-bag-b", "thumb": "/images/website/product-list_4.png" },
+    { "id": 103, "name": "Food Wrap", "sku": "036897488221-2", "slug": "food-wrap-2", "thumb": "/images/website/product-list_5.png" },
+    { "id": 206, "name": "Industrial Bag F", "sku": "IND-006", "slug": "industrial-bag-f", "thumb": "/images/website/product-list_6.png" },
+    { "id": 107, "name": "Food Wrap", "sku": "036897488221-2", "slug": "food-wrap-4", "thumb": "/images/website/product-list_7.png" },
+    { "id": 208, "name": "Industrial Bag H", "sku": "IND-008", "slug": "industrial-bag-h", "thumb": "/images/website/product-list_8.png" },
+    { "id": 109, "name": "Food Wrap", "sku": "036897488221-2", "slug": "food-wrap-5", "thumb": "/images/website/product-list_9.png" },
+    { "id": 110, "name": "Compostable Cup", "sku": "036897488221-3", "slug": "compostable-cup", "thumb": "/images/website/product-list_1.png" },
+    { "id": 204, "name": "Industrial Bag D", "sku": "IND-004", "slug": "industrial-bag-d", "thumb": "/images/website/product-list_4.png" },
+    { "id": 105, "name": "Food Wrap", "sku": "036897488221-2", "slug": "food-wrap-3", "thumb": "/images/website/product-list_5.png" },
+    { "id": 2062, "name": "Industrial Bag F2", "sku": "IND-006-2", "slug": "industrial-bag-f2", "thumb": "/images/website/product-list_6.png" },
+    { "id": 207, "name": "Industrial Wrap G", "sku": "IND-007", "slug": "industrial-wrap-g", "thumb": "/images/website/product-list_7.png" },
+    { "id": 108, "name": "Industrial Bag H", "sku": "IND-008", "slug": "industrial-bag-h-dup", "thumb": "/images/website/product-list_8.png" },
+    { "id": 209, "name": "Industrial Wrap I", "sku": "IND-009", "slug": "industrial-wrap-i", "thumb": "/images/website/product-list_9.png" },
+    { "id": 210, "name": "Industrial Film J", "sku": "IND-010", "slug": "industrial-film-j", "thumb": "/images/website/product-list_1.png" },
+    { "id": 1021, "name": "Overlock Jumbo bag v2", "sku": "036897488221-2B", "slug": "overlock-jumbo-bag-v2", "thumb": "/images/website/product-list_2.png" }
+  ]
+}
+
+

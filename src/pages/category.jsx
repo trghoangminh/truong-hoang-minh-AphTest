@@ -11,8 +11,9 @@ import {
   Row,
   Slider,
 } from "antd";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useGetProductsByCategoryQuery } from "../services/api/product.api";
 
 function Category() {
   // Bỏ cmt nếu bạn sử dụng phần này
@@ -22,10 +23,80 @@ function Category() {
 
   const [filterData, setFilterData] = useState();
   const [isSubmitDisabled, setSubmitDisabled] = useState(true);
+  const { url } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const page = useMemo(() => Number(new URLSearchParams(location.search).get("page")) || 1, [location.search]);
+
+  const categoryMeta = {
+    "consumer-packaging": { ids: [1], name: "Consumer Packaging" },
+    "industrial-packaging": { ids: [2], name: "Industrial Packaging" },
+  };
+
+  const ids = (categoryMeta[url]?.ids) || [1];
+  const defaultName = categoryMeta[url]?.name || "Consumer Packaging";
+  const [selectedIds, setSelectedIds] = useState(ids);
+  const [title, setTitle] = useState(defaultName);
+  const { data } = useGetProductsByCategoryQuery({ ids: selectedIds, page });
+  const pageSize = 9;
+
+  // Derived filtering on client (mock does not support server filters)
+  const filteredItems = useMemo(() => {
+    const source = data?.items || [];
+    if (!filterData) return source;
+
+    let result = source;
+    if (filterData.textSearch) {
+      const q = String(filterData.textSearch).toLowerCase();
+      result = result.filter((p) => p.name.toLowerCase().includes(q) || p.sku?.toLowerCase().includes(q));
+    }
+    // Placeholders for other filters when backend available
+    return result;
+  }, [data, filterData]);
+
+  const itemsToRender = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    const sliced = filteredItems.slice(start, start + pageSize);
+    return sliced.length ? sliced : filteredItems;
+  }, [filteredItems, page]);
+
+  // Scroll on page change or slug change
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, [url, page]);
+
+  // Initialize category selection only when slug changes
+  useEffect(() => {
+    const preset = categoryMeta[url]?.ids;
+    form.setFieldsValue({ categories: preset });
+    setSelectedIds(preset || [1]);
+    setTitle(categoryMeta[url]?.name || "Consumer Packaging");
+  }, [url]);
 
   const onValuesChange = (changedValues, allValues) => {
     const hasValue = Object.values(allValues).some((value) => value);
     setSubmitDisabled(!hasValue);
+
+    if (Object.prototype.hasOwnProperty.call(changedValues, "categories")) {
+      const selected = changedValues.categories || [];
+      // stay on this page; show all products if none or both selected
+      if (selected.length === 0 || selected.length === 2) {
+        setSelectedIds([1, 2]);
+        setTitle("All Products");
+        const params = new URLSearchParams(location.search);
+        params.set("page", "1");
+        navigate({ pathname: location.pathname, search: params.toString() });
+        return;
+      }
+      if (selected.length === 1) {
+        const targetId = selected[0];
+        setSelectedIds([targetId]);
+        setTitle(targetId === 1 ? "Consumer Packaging" : "Industrial Packaging");
+        const params = new URLSearchParams(location.search);
+        params.set("page", "1");
+        navigate({ pathname: location.pathname, search: params.toString() });
+      }
+    }
   };
 
   const onFilter = async (values) => {
@@ -46,13 +117,20 @@ function Category() {
       }
     });
 
-    /* VIẾT CODE CỦA BẠN VÀO ĐÂY */
+    // Save filters locally and reset to first page
+    setFilterData({ ...values, filters });
+    const params = new URLSearchParams(location.search);
+    params.set("page", "1");
+    navigate({ pathname: location.pathname, search: params.toString() });
   };
 
   const clearFilters = () => {
     form.resetFields();
     setFilterData();
     setSubmitDisabled(true);
+    const params = new URLSearchParams(location.search);
+    params.set("page", "1");
+    navigate({ pathname: location.pathname, search: params.toString() });
   };
 
   return (
@@ -97,13 +175,13 @@ function Category() {
                         ),
                       },
                       {
-                        title: <span className="active-bread">Packaging</span>,
+                        title: <span className="active-bread">{title}</span>,
                       },
                     ]}
                     id="breadcrumb"
                   />
 
-                  <h2 className="_5xfq _1kly">Packaging</h2>
+                  <h2 className="_5xfq _1kly">{title}</h2>
                   <div className="_7vyg">
                     <p>
                       All our products are under absolute supervision, from raw
@@ -216,252 +294,55 @@ function Category() {
               </Col>
 
               <Col span={18}>
+                <div className="product_cate">
                 <div className="_7mkr">
-                  <h2 className="_3rac">Consumer Packaging</h2>
+                  <h2 className="_3rac">{title}</h2>
                 </div>
                 <div className="products">
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_1.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Food Wrap
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
+                  {filteredItems.length === 0 && (
+                    <div style={{ gridColumn: "1 / -1", color: "#696969" }}>
+                      No products found.
+                    </div>
+                  )}
+                  {itemsToRender?.map((p) => (
+                    <div key={p.id} className="col has-hover product">
+                      <div className="col-inner">
+                        <div className="box-product has-hover">
+                          <div className="box-image customer-box-image-product">
+                            <Link to={`/product/${p.slug}`} className="_1gqs block image-zoom">
+                              <img src={p.thumb} className="_8wjh" />
+                            </Link>
+                          </div>
+                          <div className="box-text box-text-products text-left">
+                            <div className="title-wrapper">
+                              <h4 className="product-title">
+                                <Link to={`/product/${p.slug}`} className="product_link">
+                                  {p.name}
+                                </Link>
+                              </h4>
+                              <p className="sku">
+                                SKU: <span>{p.sku}</span>
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_2.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Overlock Jumbo bag
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_1.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Food Wrap
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_2.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Overlock Jumbo bag
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_2.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Overlock Jumbo bag
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_1.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Food Wrap
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_2.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Overlock Jumbo bag
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_1.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Food Wrap
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col has-hover product">
-                    <div className="col-inner">
-                      <div className="box-product has-hover">
-                        <div className="box-image customer-box-image-product">
-                          <a href="#" className="_1gqs block image-zoom">
-                            <img
-                              src="/images/website/product-list_2.png"
-                              className="_8wjh"
-                            />
-                          </a>
-                        </div>
-                        <div className="box-text box-text-products text-left">
-                          <div className="title-wrapper">
-                            <h4 className="product-title">
-                              <a href="#" className="product_link">
-                                Overlock Jumbo bag
-                              </a>
-                            </h4>
-                            <p className="sku">
-                              SKU: <span>036897488221-2</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <Pagination
-                  defaultCurrent={1}
-                  total={27}
-                  defaultPageSize={9}
+                  current={page}
+                  total={filterData ? filteredItems.length : (data?.total ?? filteredItems.length)}
+                  pageSize={pageSize}
+                  onChange={(p) => {
+                    const params = new URLSearchParams(location.search);
+                    params.set("page", String(p));
+                    navigate({ pathname: location.pathname, search: params.toString() });
+                  }}
                   className="pagination-cntt"
                 />
+                </div>
               </Col>
             </Row>
           </div>

@@ -7,9 +7,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Mousewheel, Pagination, Thumbs } from "swiper/modules";
 import defaultImage from "../assets/images/defaultImage.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetProductByUrlQuery, useGetRelatedProductsQuery } from "../services/api/product.api";
 
 function ProductDetail() {
   const { url } = useParams();
+  const { data: product } = useGetProductByUrlQuery(url);
+  const { data: related } = useGetRelatedProductsQuery(product?.id, { skip: !product?.id });
 
   const swiperRef = useRef(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -29,8 +32,6 @@ function ProductDetail() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
-
-    /* VIẾT CODE CỦA BẠN VÀO ĐÂY */
   }, [url]);
 
   const handleNext = () => {
@@ -100,30 +101,11 @@ function ProductDetail() {
                   onSwiper={setThumbsSwiper}
                   className="ThumbGallery GalleryArea"
                 >
-                  <SwiperSlide>
-                    <Image
-                      src="/images/website/product_1.png"
-                      alt="Product Thumb"
-                      fallback={defaultImage}
-                      preview={false}
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Image
-                      src="/images/website/product_2.png"
-                      alt=""
-                      fallback={defaultImage}
-                      preview={false}
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Image
-                      src="/images/website/product_3.png"
-                      alt=""
-                      fallback={defaultImage}
-                      preview={false}
-                    />
-                  </SwiperSlide>
+                  {product?.media?.map((m) => (
+                    <SwiperSlide key={m}>
+                      <Image src={m} alt="Product Thumb" fallback={defaultImage} preview={false} />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
                 <Image.PreviewGroup>
                   <Swiper
@@ -131,30 +113,11 @@ function ProductDetail() {
                     thumbs={{ swiper: thumbsSwiper }}
                     className="ProductGallery GalleryArea"
                   >
-                    <SwiperSlide>
-                      <Image
-                        src="/images/website/product_1.png"
-                        alt="Product Thumb"
-                        fallback={defaultImage}
-                        preview={false}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <Image
-                        src="/images/website/product_2.png"
-                        alt=""
-                        fallback={defaultImage}
-                        preview={false}
-                      />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                      <Image
-                        src="/images/website/product_3.png"
-                        alt=""
-                        fallback={defaultImage}
-                        preview={false}
-                      />
-                    </SwiperSlide>
+                    {product?.media?.map((m) => (
+                      <SwiperSlide key={m}>
+                        <Image src={m} alt="Product" fallback={defaultImage} preview={false} />
+                      </SwiperSlide>
+                    ))}
                   </Swiper>
                 </Image.PreviewGroup>
               </div>
@@ -172,18 +135,12 @@ function ProductDetail() {
             </div>
             <div className="_5enz">
               <div className="product-info">
-                <h1 className="product-title product_title entry-title">
-                  Food Wrap
-                </h1>
+                <h1 className="product-title product_title entry-title">{product?.name || ""}</h1>
                 <div className="sku">
                   <strong>SKU: </strong>
-                  <span>036897488221-2</span>
+                  <span>{product?.sku}</span>
                 </div>
-                <div className="description">
-                  100% compostable: made from PBAT compostable material, AnEco
-                  food wrap is capable of completely decomposing within 6-12
-                  months into humus, water, Co2.
-                </div>
+                <div className="description">{product?.shortDesc}</div>
                 <div className="_6zrw">
                   <Link to="/contact-us" className="button button-gradient">
                     <span>Request Quote</span>
@@ -194,23 +151,7 @@ function ProductDetail() {
                 </div>
                 <div className="contents widget-content">
                   <h4 className="_9cfu">Performance Features:</h4>
-                  <div className="inner-content">
-                    <ul>
-                      <li>
-                        With outstanding features to other products on the
-                        market, AnEco compostable cling wrap is transparent,
-                        flexible with a sharp cutting bar, easy for consumers in
-                        food preservation.
-                      </li>
-                      <li>
-                        Convenient thumb opening allows for a safe, easy grasp
-                        on the film
-                      </li>
-                      <li>FDA Compliant</li>
-                      <li>CFIA Compliant</li>
-                      <li>Kosher Compliant</li>
-                    </ul>
-                  </div>
+                  <div className="inner-content" dangerouslySetInnerHTML={{ __html: product?.specification || "" }} />
                 </div>
               </div>
             </div>
@@ -292,126 +233,22 @@ function ProductDetail() {
                     },
                   }}
                 >
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_1.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Food Wrap</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
+                  {related?.map((p) => (
+                    <SwiperSlide key={p.id}>
+                      <Link className="box_project block has-hover" to={`/product/${p.slug}`}>
+                        <div className="media_prj image-zoom">
+                          <Image src={p.thumb} alt="Product Thumb" fallback={defaultImage} preview={false} className="_7omy" />
                         </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_2.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Overlock Jumbo bag</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
+                        <div className="text_prj">
+                          <h4 className="textLine-2">{p.name}</h4>
+                          <div className="_7yax">
+                            <strong>SKU&nbsp;</strong>
+                            <span>{p.sku}</span>
+                          </div>
                         </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_3.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Food Wrap</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_4.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Overlock Jumbo bag</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_5.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Food Wrap</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Link className="box_project block has-hover" to="">
-                      <div className="media_prj image-zoom">
-                        <Image
-                          src="/images/website/product-list_6.png"
-                          alt="Product Thumb"
-                          fallback={defaultImage}
-                          preview={false}
-                          className="_7omy"
-                        />
-                      </div>
-                      <div className="text_prj">
-                        <h4 className="textLine-2">Overlock Jumbo bag</h4>
-                        <div className="_7yax">
-                          <strong>SKU&nbsp;</strong>
-                          <span>036897488221-2</span>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
+                      </Link>
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </Col>
             </Row>
