@@ -669,6 +669,12 @@
   ._1ghu {
     max-width: 1320px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
   }
 
   .GalleryArea {
@@ -698,9 +704,11 @@
   }
 
   .product-vertical-thumbnails {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 21px;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 0;
 
     .swiper-pagination-vertical {
       visibility: hidden;
@@ -711,15 +719,15 @@
     }
 
     .ThumbGallery {
-      width: 80px;
-      height: 500px;
+      width: 90px;
+      height: 460px;
 
       .swiper-slide {
-        border-radius: 12px;
+        border-radius: 10px;
         border: 2px solid transparent;
         overflow: hidden;
-        height: 80px;
-        width: 80px;
+        height: 90px;
+        width: 90px;
 
         &.swiper-slide-thumb-active {
           border: 2px solid #58b947;
@@ -742,7 +750,8 @@
   ._6hoq {
     text-align: left;
     position: relative;
-    left: 120px;
+    left: 0;
+    margin-top: 8px;
 
     ._7lpb {
       color: #118e55;
@@ -765,13 +774,13 @@
     .product-title {
       color: var(--Blue-800, #1e246e);
       font-family: Unbounded;
-      font-size: 40px;
+      font-size: 36px;
       font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-bottom: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #dedfd8;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .sku {
@@ -780,18 +789,19 @@
       text-overflow: ellipsis;
       font-size: 14px;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 500;
       line-height: normal;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .description {
-      color: #696969;
-      font-size: 16px;
+      color: #3a3a3a;
+      font-size: 14px;
       font-style: normal;
       font-weight: 400;
-      line-height: normal;
-      margin-bottom: 40px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      max-width: 560px;
     }
 
     ._6zrw {
@@ -799,15 +809,20 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
 
       .button {
-        padding: 12px 28px;
+        padding: 10px 22px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-decoration: none;
 
         &.button-outline-green {
           background: transparent;
           color: #118e55;
           border: 1px solid #118e55;
+          text-decoration: none;
 
           &:hover {
             color: #fff;
@@ -815,8 +830,17 @@
               --Linear-1,
               linear-gradient(90deg, #008356 0%, #52a949 100%)
             );
+            border-color: transparent;
+            text-decoration: none;
           }
         }
+      }
+      .button-gradient {
+        background: linear-gradient(90deg, #73b564 0%, #2ca24c 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.08) inset;
+        text-decoration: none;
       }
     }
 

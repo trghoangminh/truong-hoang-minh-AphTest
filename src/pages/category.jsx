@@ -70,7 +70,7 @@ function Category() {
     const preset = categoryMeta[url]?.ids;
     form.setFieldsValue({ categories: preset });
     setSelectedIds(preset || [1]);
-    setTitle(categoryMeta[url]?.name || "Consumer Packaging");
+    setTitle(categoryMeta[url]?.name || "All Products");
   }, [url]);
 
   const onValuesChange = (changedValues, allValues) => {
@@ -79,7 +79,7 @@ function Category() {
 
     if (Object.prototype.hasOwnProperty.call(changedValues, "categories")) {
       const selected = changedValues.categories || [];
-      // stay on this page; show all products if none or both selected
+      // stay on this page; if none or both selected, label as "All Products"
       if (selected.length === 0 || selected.length === 2) {
         setSelectedIds([1, 2]);
         setTitle("All Products");
@@ -175,13 +175,13 @@ function Category() {
                         ),
                       },
                       {
-                        title: <span className="active-bread">{title}</span>,
+                        title: <span className="active-bread">Packaging</span>,
                       },
                     ]}
                     id="breadcrumb"
                   />
 
-                  <h2 className="_5xfq _1kly">{title}</h2>
+                  <h2 className="_5xfq _1kly">Packaging</h2>
                   <div className="_7vyg">
                     <p>
                       All our products are under absolute supervision, from raw
@@ -309,14 +309,14 @@ function Category() {
                       <div className="col-inner">
                         <div className="box-product has-hover">
                           <div className="box-image customer-box-image-product">
-                            <Link to={`/product/${p.slug}`} className="_1gqs block image-zoom">
+                            <Link to={`/product/${p.slug}`} state={{ fallback: p, fromCategory: url }} className="_1gqs block image-zoom">
                               <img src={p.thumb} className="_8wjh" />
                             </Link>
                           </div>
                           <div className="box-text box-text-products text-left">
                             <div className="title-wrapper">
                               <h4 className="product-title">
-                                <Link to={`/product/${p.slug}`} className="product_link">
+                                <Link to={`/product/${p.slug}`} state={{ fallback: p, fromCategory: url }} className="product_link">
                                   {p.name}
                                 </Link>
                               </h4>
@@ -349,46 +349,7 @@ function Category() {
         </div>
       </section>
 
-      <section className="lichen-gel section">
-        <div className="section-content relative">
-          <div className="_2gia">
-            <Row gutter={60}>
-              <Col span={12}>
-                <div className="text-box_image">
-                  <p className="_0kce">Our catalog</p>
-                  <h3 className="_8mak">Explore Our Catalogs</h3>
-                  <p className="_8fet">
-                    Through a journey of establishment and continuous
-                    development, An Phat Holdings has emerged as the leading
-                    high-tech, environmentally friendly plastics group in
-                    Southeast Asia. With over 20 years of experience, we are
-                    dedicated to delivering high-quality, sustainable products
-                    across a wide range of industries. As the region’s foremost
-                    innovator in eco-friendly plastic solutions, we have built a
-                    strong reputation and successfully expanded our presence
-                    into key global markets, including Europe, the Americas, the
-                    UAE, Japan, Korea, Singapore, Taiwan, and the Philippines.
-                    Driven by ongoing research, innovation, and creativity, we
-                    are committed to creating enduring value for our customers,
-                    investors, and employees.
-                  </p>
-                  <div className="_3qdw">
-                    <a className="button button-outline-green" href="/catalog">
-                      <span>Our Catalogs</span>
-                      <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
-                    </a>
-                  </div>
-                </div>
-              </Col>
-              <Col span={12}>
-                <div className="image-box_image">
-                  <img src="/images/website/explore.png" className="_6ikc" />
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </div>
-      </section>
+      {/* Catalog section removed per request */}
     </div>
   );
 }
