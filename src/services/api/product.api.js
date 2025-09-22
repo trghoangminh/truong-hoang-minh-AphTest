@@ -44,6 +44,10 @@ export const productApi = api.injectEndpoints({
       query: (q) => `products.search.json?q=${encodeURIComponent(q)}`,
       providesTags: ["Products"],
     }),
+    getAllMockProducts: build.query({
+      query: () => `products.json`,
+      providesTags: ["Products"],
+    }),
     filterSearchProducts: build.mutation({
       query: (body) => ({
         url: `products.filter.json`,

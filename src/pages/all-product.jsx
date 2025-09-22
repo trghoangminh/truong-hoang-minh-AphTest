@@ -48,13 +48,13 @@ function AllProduct() {
                       },
                       {
                         title: (
-                          <span className="active-bread">Packaging</span>
+                          <span className="active-bread">All Products</span>
                         ),
                       },
                     ]}
                     id="breadcrumb"
                   />
-                  <h2 className="_5xfq _1kly">Packaging</h2>
+                  <h2 className="_5xfq _1kly">All Product</h2>
                   <p className="_7vyg">
                     Discover our full range of eco-friendly and high-tech
                     plastic packaging products designed for diverse industries.
